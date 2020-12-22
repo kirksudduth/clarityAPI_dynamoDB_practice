@@ -4,11 +4,13 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+
 class EmployeeModel(models.Model):
-  
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     employee_number = models.CharField(max_length=50)
     employee_admin = models.BooleanField(default=True)
+    id = models.CharField(null=False)
 
     class Meta:
         verbose_name = ("employee")

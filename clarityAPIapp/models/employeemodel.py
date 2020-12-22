@@ -3,14 +3,23 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import User
+from .abstractmodel import AbstractModel
 
 
-class EmployeeModel(models.Model):
+class EmployeeModel(models.Model, AbstractModel):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    employee_number = models.CharField(max_length=50)
+    # thought Employee Num could be id
+    id = models.CharField(max_length=50)
     employee_admin = models.BooleanField(default=True)
-    id = models.CharField(null=False)
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.CharField(max_length=75)
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+    is_staff = models.BooleanField(default=True)
+    title_role = models.CharField(max_length=75)
 
     class Meta:
         verbose_name = ("employee")

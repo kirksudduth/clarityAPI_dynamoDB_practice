@@ -2,16 +2,24 @@ from pprint import pprint
 import boto3
 
 
-def update(id)
+def update_person(id, person_name):
+
+    dynamodb = boto3.resource(
+        'dynamodb')
+
+    table = dynamodb.Table('clarityAPI')
+
+    response = table.update_item(
+        Key={
+            'id': id
+        },
+        UpdateExpression="set First_Name=:f",
+        ExpressionAttributeValues={
+            ':f': person_name
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+    return response
 
 
-dynamodb = boto3.resource('dynamodb')
-
-table = dynamodb.Table('clarityAPI')
-
-response = table.update_item(
-    Key={
-        'id': '2e766be3-df3c-48e0-8754-bf415e059a02'
-    },
-    UpdateExpression="set "
-)
+update_person('65146075-eaf6-4f89-939d-3fc2a44aa339', 'John')

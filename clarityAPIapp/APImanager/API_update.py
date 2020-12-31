@@ -2,7 +2,7 @@ from pprint import pprint
 import boto3
 
 
-def update_person(id, person_name):
+def update_person(pk, sk, person_name):
 
     dynamodb = boto3.resource(
         'dynamodb')
@@ -11,7 +11,8 @@ def update_person(id, person_name):
 
     response = table.update_item(
         Key={
-            'id': id
+            'PK': pk,
+            'SK': sk
         },
         UpdateExpression="set First_Name=:f",
         ExpressionAttributeValues={
@@ -22,4 +23,5 @@ def update_person(id, person_name):
     return response
 
 
-update_person('65146075-eaf6-4f89-939d-3fc2a44aa339', 'John')
+update_person('EMPLOYEE#f3235b7a-4e72-4101-afd8-6e1812c04761',
+              'LOCATION#2', 'Terry')

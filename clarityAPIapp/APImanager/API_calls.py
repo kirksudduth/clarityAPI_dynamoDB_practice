@@ -7,9 +7,10 @@ table = dynamodb.Table('clarityAPI')
 
 table.put_item(
     Item={
-        'First_Name': 'Jack',
-        'Location': 'North Pole',
-        'id': str(uuid.uuid4())
+        'First_Name': 'Tanya',
+        'Location': 'Dayton',
+        'PK': 'EMPLOYEE#'+str(uuid.uuid4()),
+        'SK': 'LOCATION#2'
     }
 )
 print("TABLE: ", table)

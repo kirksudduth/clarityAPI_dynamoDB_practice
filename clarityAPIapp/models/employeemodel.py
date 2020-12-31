@@ -10,7 +10,7 @@ class EmployeeModel(models.Model, AbstractModel):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # thought Employee Num could be id
-    id = models.CharField(max_length=50)
+    id = models.CharField(max_length=50, primary_key=True)
     employee_admin = models.BooleanField(default=True)
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50)

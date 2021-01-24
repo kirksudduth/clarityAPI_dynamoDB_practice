@@ -7,10 +7,10 @@ table = dynamodb.Table('clarityAPI')
 
 
 def lambda_handler(event, context):
-
-    response = table.put_item(
+    PK = 'SIBLING-'+str(uuid.uuid4())
+    table.put_item(
         Item={
-            'PK': 'SIBLING-'+str(uuid.uuid4()),
+            'PK': PK,
             'SK': event['patient_id'],
             'sibling_first_name': event['sibling_first_name'],
             'sibling_last_name': event['sibling_last_name'],
@@ -18,4 +18,18 @@ def lambda_handler(event, context):
             'sibling_dob': event['sibling_dob']
         }
     )
-    return response
+    return response("You did it!! Sibling created successfully.", 200)
+
+
+def response(message, status_code):
+    return {
+        'statusCode': str(status_code),
+        'message': message,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Acces-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,PUT',
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+        }
+    }

@@ -21,8 +21,18 @@ def lambda_handler(event, context):
 
     item = table.get_item(Key={"PK": pk, "SK": event['patient_id']})
 
+    return response("Spouse added successfully!", 200)
+
+
+def response(message, status_code):
     return {
-        'statusCode': 200,
-        'message': json.dumps("Beeeeautiful!"),
-        'NewSpouseItem': item['Item']
+        'statusCode': str(status_code),
+        'message': message,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Acces-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,PUT',
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+        }
     }
